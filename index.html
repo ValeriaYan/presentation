@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/dracula.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section><strong>YAML (YAML Ain't a Markup Language)</strong> is a human—friendly data serialization standard for all programming languages.</p></section>
+					<section><strong>The main objectives of the creation:</strong></section>
+					<section>
+						<ol>
+							<li>be understandable to a person;</li>
+							<li class="fragment">support data structures native to programming languages;</li>
+							<li class="fragment">be portable between programming languages;</li>
+							<li class="fragment">support streaming processing;</li>
+							<li class="fragment">be expressive and expandable;</li>
+							<li class="fragment">be easy to implement and use</li>
+						</ol>
+					</section>
+				</section>
+				<section>
+					<section><strong>Advantages of YAML</strong></section>
+					<section><li>Convenience of perception and mastering by a person</li></section>
+					<section><li>Independence from the programming language</li></section>
+					<section><li>Uniqueness</li></section>
+					<section><li>Suitability for version control</li></section>
+					<section><li>Syntax strictness</li></section>
+					<section><li>Processing speed</li></section>
+				</section>
+				<section>
+					<section><strong>Examples of using YAML</strong></section>
+					<section>
+						<ul>
+							<li>configuration files</li>
+							<li>data sharing by programs in different languages</li>
+							<li>debugging complex data structures</li>
+							<li>messaging between processes</li>
+							<li>data storage</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section><strong>YAML Features</strong></section>
+					<section>
+						<b>Multi document support</b>
+						<p style="font-size: 24px">Documents are separated by three hyphens (—):</p>
+						<pre>
+							<code>
+---
+player: playerOne
+action: attack (miss)
+---
+player: playerTwo
+action: attack (hit)
+---
+							</code>
+						</pre>
+					</section>
+					<section>
+						<b>Support for comments</b>
+						<p style="font-size: 24px">YAML allows you to add comments after the character #</p>
+						<pre>
+							<code>
+key: 
+#This is a one-line comment
+   	- value line 5
+#This is a 
+#multiline comment
+	- value line 13
+							</code>
+						</pre>
+					</section>
+					<section>
+						<b>Easy-to-read syntax</b>
+						<p style="font-size: 24px">The syntax of YAML files uses an indentation system. It is necessary to use spaces rather than tabs to avoid confusion.</p>
+						<pre>
+							<code>
+#YAML
+ Imaro:
+ author: Charles R. Saunders
+ language: English
+ publication-year: 1981
+ pages: 224
+							</code>
+						</pre>
+						<pre>
+							<code>
+{
+	"Imaro": {
+		"author": "Charles R. Saunders",
+		"language": "English",
+		"publication-year": "1981",
+		"pages": 224
+	}
+}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<b>Explicit and implicit typing</b>
+						<p style="font-size: 24px">To use a specific type, you need to write <i>!![type] </i>  before the value.</p>
+						<pre>
+							<code>
+# This value is converted to int:
+is-an-int: !!int 14.10
+# Turns any value into a string:
+is-a-str: !!str 67.43
+# The value must be boolean:
+is-a-bool: !!bool yes
+							</code>
+						</pre>
+					</section>
+					<section>
+						<b>Anchors or variables</b>
+						<p style="font-size: 24px">Anchors allow you to avoid repeating configuration fragments.</p>
+					</section>
+					<section>
+						<p style="font-size: 24px">In JSON we would have to duplicate these configs</p>
+						<pre> 
+							<code>
+	{
+	"production": {
+		"node_version": "13.0.0",
+		"os": "ubuntu",
+		"package_manager": "yarn",
+		"run": ["yarn install", "NODE_ENV=${ENVIRONMENT} yarn build"],
+		"env": {
+			"ENVIRONMENT": "production"
+		}
+	},
+	"development": {
+		"node_version": "13.0.0",
+		"os": "ubuntu",
+		"package_manager": "yarn",
+		"run": ["yarn install", "NODE_ENV=${ENVIRONMENT} yarn build"],
+		"env": {
+			"ENVIRONMENT": "development"
+		}
+	}
+	}
+							</code>
+						</pre>
+					</section>
+					<section>
+						<p style="font-size: 24px">In YAML, this problem is solved by variables. Variables are denoted by an ampersand (&), and their values are substituted using an asterisk (*)</p>
+						<pre>
+							<code>
+base-config: &base
+  node_version: 13.0.0
+  os: ubuntu
+  package_manager: yarn
+  run:
+    - yarn install
+    - NODE_ENV=${ENVIRONMENT} yarn build
+production:
+	# Embedding all "base" attributes and values in production
+	&lt;&lt;: *base
+	env:
+	  - ENVIRONMENT: production
+staging:
+	# Embedding all "base" attributes and values in staging
+	&lt;&lt;: *base
+	env:
+	  - ENVIRONMENT: staging
+							</code>
+						</pre>
+					</section>
+					<section>
+						<b>Other YAML features</b>
+					</section>
+				</section>
+				<section>
+					<section>
+						<strong>YAML vs JSON</strong>
+					</section>
+					<section>
+						<b>YAML</b>
+						<ul>
+							<li class="fragment">YAML allows you to describe real-world objects in a readable format.</li>
+							<li class="fragment">Provides more features than JSON for creating complex data structures. This is a strict superset of JSON, and therefore all valid JSON documents are also valid YAML documents.</li>
+							<li class="fragment">YAML supports in-line processing</li>
+							<li class="fragment">YAML has the smallest size in serialized form.</li>
+						</ul>
+					</section>
+					<section>
+						<b>JSON</b>
+						<ul>
+							<li class="fragment">JSON is a format for storing and transmitting data.</li>
+							<li class="fragment">Comments in JSON are not supported.</li>
+							<li class="fragment">Surpasses YAML in parsing and serialization speed.</li>
+							<li class="fragment">This format is most often used in web development, for example, to transfer data from a server to a web page.</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section><strong>What is the best way to use it?</strong></section>
+					<section>
+						<p>If you just need to store and transfer data, or if you have a fairly simple configuration in a couple of lines, then there is no point in complicating and using additional YAML features, it is better to choose JSON. And if you have a rather large and ornate file, then it is definitely worth considering YAML.</p>
+					</section>
+				</section>
+				<section>
+					<section><b>Useful links</b></section>
+					<section>
+						<ul>
+							<li>JSON to YAML <a href="https://www.json2yaml.com">Converter</a></li>
+							<li><a href="https://onlineyamltools.com/validate-yaml">Checking</a> the YAML code</li>
+							<li><a href="https://yaml.org/spec/1.2.2/">Specification</a> of version 1.2.2</li>
+						</ul>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+		<script src="plugin/copycode/copycode.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+
+			Reveal.initialize({
+				hash: true,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, CopyCode ]
+			});
+		</script>
+	</body>
+</html>
